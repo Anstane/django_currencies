@@ -1,0 +1,14 @@
+version: '3'
+
+volumes:
+  sqlite3:
+
+services:
+  app:
+    build: ./
+    container_name: django_currencies
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite3:/data/
+    command: /docker-entrypoint.sh
