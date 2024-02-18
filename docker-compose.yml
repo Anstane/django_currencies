@@ -7,8 +7,15 @@ services:
   app:
     build: ./
     container_name: django_currencies
+    restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:
       - sqlite3:/data/
-    command: /docker-entrypoint.sh
+    # command: /app/docker-entrypoint.sh
+
+  # cron:
+  #   build: ./
+  #   container_name: django_cron
+  #   restart: unless-stopped
+  #   command: cron -f

@@ -18,9 +18,9 @@ RUN apt update && \
     apt-get install -y cron && \
     apt-get clean
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+# RUN chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 8000
 
-CMD ["/docker-entrypoint.sh"]
+# CMD ["/app/docker-entrypoint.sh"]
+CMD service cron start && python manage.py runserver 0.0.0.0:8000

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if charcode %}
+    <h2>Курс валюты {{ charcode }} на момент {{ date }} составляет {{ rate }}</h2>
+  {% else %}
+    <h2>Валюта не обнаружена</h2>
+  {% endif %}
+{% endblock %}
