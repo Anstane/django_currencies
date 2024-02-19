@@ -46,4 +46,4 @@ class Command(BaseCommand):
             Currency.objects.bulk_update(currencies_to_update, ['rate'])
             Currency.objects.bulk_create(currencies_to_create)
 
-        self.stdout.write(self.style.SUCCESS('Данные были успешно обновлены.'))
+        self.stdout.write(self.style.SUCCESS(f'Данные были успешно обновлены - {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}'))

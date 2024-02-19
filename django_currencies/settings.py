@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -117,7 +118,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     }
 # }
 
+
+# Almost fixed.
+
 CRONJOBS = [ 
-    ('* * * * *', 'rate.cron.update_rates', '>> /cron/django_cron.log 2>&1'),
+    ('* * * * *', 'django.core.management.call_command', ['update_rate'], {}, '>>' + os.path.join(BASE_DIR, 'cron/django_cron.log' + ' 2>&1 ')),
 ]
-# С запуском крона есть небольшие проблемы -> он создаёт процесс, но он не запускается и логи не сохраняются.
