@@ -11,16 +11,15 @@ RUN poetry config virtualenvs.create false && \
 
 COPY . ./
 
-RUN mkdir /cron
-RUN touch /cron/django_cron.log
+RUN mkdir /app/cron
+RUN touch /app/cron/django_cron.log
 
 RUN apt update && \
     apt-get install -y cron && \
     apt-get clean
 
-# RUN chmod +x /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 8000
 
-# CMD ["/app/docker-entrypoint.sh"]
-CMD service cron start && python manage.py runserver 0.0.0.0:8000
+CMD ["/app/docker-entrypoint.sh"]
