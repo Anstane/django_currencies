@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Список всех валют на {{ today }}</h1>
+<ul>
+  {% for currency in currencies %}
+    <li>{{ currency.charcode }} - {{ currency.rate }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -11,16 +11,18 @@ RUN poetry config virtualenvs.create false && \
 
 COPY . ./
 
-RUN mkdir /cron
-RUN touch /cron/django_cron.log
+RUN mkdir /app/cron
+RUN touch /app/cron/django_cron.log
 
 RUN apt update && \
-    apt-get install -y cron && \
-    apt-get clean
+    apt install -y cron && \
+    apt install -y dos2unix && \
+    apt install -y curl
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
+RUN dos2unix /app/docker-entrypoint.sh
 
 EXPOSE 8000
 
-CMD ["/docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]

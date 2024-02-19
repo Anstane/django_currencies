@@ -1,9 +1,10 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-)qwfredj*r@o@bm0uku-qg-6l(&v#6*pi3r5vg9*14#6x@h@qj'
+SECRET_KEY = 'django-insecure-)qwfredj*r@o@bm0uku-qg-6l(&v#6*pi3r5vg9*14#6x@h@qj' # Можно убрать в .env
 
 DEBUG = True
 
@@ -95,7 +96,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LOGGING = {
+# LOGGING = { # Раскомментировать если хотим получить логи БД.
 #     'version': 1,
 #     'filters': {
 #         'require_debug_true': {
@@ -117,6 +118,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     }
 # }
 
-CRONJOBS = [
-    ('* * * * *', '/usr/local/bin/python ./manage.py update_rate >> /cron/django_cron.log 2>&1'),
+
+# Almost fixed.
+
+CRONJOBS = [ 
+    ('* * * * *', 'django.core.management.call_command', ['update_rate'], {}, '>>' + os.path.join(BASE_DIR, 'cron/django_cron.log' + ' 2>&1 ')),
 ]
